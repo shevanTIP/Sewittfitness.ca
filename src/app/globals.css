@@ -1,26 +1,273 @@
 @import "tailwindcss";
 
+@theme {
+  --color-onyx: #0b0b0c;
+  --color-onyx-2: #111214;
+  --color-onyx-3: #1a1a1c;
+  --color-smoke: #f5f5f2;
+  --color-brick: #c1121f;
+  --color-brick-dark: #9a0e18;
+  --color-gold: #e9d050;
+  --color-cream: #f5efc8;
+
+  --font-headline: Impact, "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  background: var(--color-onyx);
+  color: var(--color-smoke);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 17px;
+  }
+}
+
+::selection {
+  background: var(--color-brick);
+  color: var(--color-smoke);
+}
+
+a {
+  color: inherit;
+}
+
+/* === Reusable utility classes === */
+
+.label-mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.label-mono-sm {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.h-display {
+  font-family: var(--font-headline);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+
+/* === Buttons === */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 2px;
+  transition: background-color 200ms ease, transform 200ms ease, color 200ms ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-primary {
+  background: var(--color-brick);
+  color: var(--color-smoke);
+  border: 1px solid var(--color-brick);
+}
+
+.btn-primary:hover {
+  background: var(--color-brick-dark);
+  border-color: var(--color-brick-dark);
+  transform: scale(1.02);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-smoke);
+  border: 2px solid var(--color-smoke);
+}
+
+.btn-ghost:hover {
+  background: var(--color-smoke);
+  color: var(--color-brick);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--color-onyx);
+  border: 2px solid var(--color-onyx);
+}
+
+.btn-outline-dark:hover {
+  background: var(--color-onyx);
+  color: var(--color-smoke);
+}
+
+/* === Section sizing === */
+
+.section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+.container-x {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .container-x {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+/* === Reveal-on-scroll === */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Aurora background (footer) === */
+
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(60px, -40px, 0) scale(1.1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes aurora-drift-2 {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-50px, 30px, 0) scale(1.05); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.aurora {
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform, left, top;
+}
+
+.aurora-blob-red {
+  width: 480px;
+  height: 480px;
+  background: rgba(193, 18, 31, 0.18);
+  top: calc(var(--mouse-y) - 240px);
+  left: calc(var(--mouse-x) - 120px);
+  animation: aurora-drift 14s ease-in-out infinite;
+  transition: top 600ms ease, left 600ms ease;
+}
+
+.aurora-blob-gold {
+  width: 420px;
+  height: 420px;
+  background: rgba(233, 208, 80, 0.14);
+  top: calc(var(--mouse-y) - 360px);
+  left: calc(var(--mouse-x) - 320px);
+  animation: aurora-drift-2 18s ease-in-out infinite;
+  transition: top 600ms ease, left 600ms ease;
+}
+
+/* === About image cycler === */
+
+@keyframes about-cycle {
+  0%, 20% { opacity: 1; }
+  30%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.about-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: about-cycle 20s ease-in-out infinite;
+}
+
+/* === Step timeline === */
+
+.step-line {
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(193, 18, 31, 0.25);
+  transform-origin: top;
+  transform: scaleY(var(--draw, 0));
+  transition: transform 1.2s ease-out;
+}
+
+@media (min-width: 768px) {
+  .step-line {
+    left: 36px;
+  }
+}
+
+/* Reduce-motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .aurora-blob, .about-img, .step-line {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }

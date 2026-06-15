@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg-progress" cx="40%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#1d1517"/>
+      <stop offset="100%" stop-color="#0b0b0c"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg-progress)"/>
+  <g opacity="0.25" stroke="#c1121f" stroke-width="1.5" fill="none">
+    <path d="M0,360 Q300,260 600,360 T1200,360"/>
+    <path d="M0,460 Q300,380 600,460 T1200,440"/>
+  </g>
+  <text x="600" y="380" text-anchor="middle" font-family="Courier New, monospace" font-size="14" letter-spacing="4" fill="#f5f5f2" opacity="0.5">NUTRITION</text>
+</svg>
